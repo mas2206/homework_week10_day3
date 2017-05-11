@@ -1,14 +1,7 @@
 var arrayTasks = {
 
 	concat: function (arr1, arr2) {
-		var concatenatedArray = [];
-		for (var item of arr1) {
-			concatenatedArray.push(item);
-		}
-		for (var item of arr2) {
-			concatenatedArray.push(item);
-		}
-		return concatenatedArray;
+		return arr1.concat(arr2);
 	},
 
 	insertAt: function (arr, itemToAdd, index) {
@@ -17,61 +10,48 @@ var arrayTasks = {
 	},
 
 	square: function (arr) {
-		var squaredArray = [];
-		for (var number of arr) {
-			squaredArray.push(number * number);
-		}
-		return squaredArray;
+		return arr.map(function(number) {
+			return (number * number);
+		})
 	},
 
 	sum: function (arr) {
-		var totalSum = 0;
-		arr.forEach(function(number) {
-			totalSum += number;
+		return arr.reduce(function(total, number) {
+			return total + number;
 		})
-		return totalSum;
 	},
 
 	findDuplicates: function (arr) {
-		//test fails
-		var duplicatesArray = [];
-		for (var number of arr) {
-			if (arr.includes(number) && arr.indexOf(number) != arr.indexOf(number)) {
-				duplicatesArray.push(number);
-			}
-		}
-		return duplicatesArray;
+		return arr.filter(function(item, i) {
+			var restOfArrayIncludesItem = arr.slice(i + 1).includes(item);
+			var isFirstInstanceOfItem = arr.indexOf(item) === i;
+			return restOfArrayIncludesItem && isFirstInstanceOfItem;
+		})
 	},
 
 	removeAndClone: function (arr, valueToRemove) {
-		var clonedArray = [];
-		for (var number of arr) {
-			if (number != valueToRemove) {
-				clonedArray.push(number);
-			}
-		}
-		return clonedArray;
+		return arr.filter(function(item) {
+			return item !== valueToRemove;
+		})
 	},
 
 	findIndexesOf: function (arr, itemToFind) {
-		//test fails
-		indexPositionsArray = [];
-		for (var number of arr) {
-			if (number === itemToFind) {
-				indexPositionsArray.push(arr.indexOf(number));
+		var results = [];
+		arr.forEach(function(item, index) {
+			if (item === itemToFind) {
+				results.push(index);
 			}
-		}
-		return indexPositionsArray;
+		})
+		return results;
 	},
 
 	sumOfAllEvenNumbersSquared: function (arr) {
-		sumEvenNumbersSquared = 0;
-		for (var number of arr) {
+		return arr.reduce(function(total, number) {
 			if (number % 2 === 0) {
-				sumEvenNumbersSquared += (number * number);
+				return total + (number * number);
 			}
-		}
-		return sumEvenNumbersSquared;
+			return total;
+		}, 0);
 	}
 
 }
